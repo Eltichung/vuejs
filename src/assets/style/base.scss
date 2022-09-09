@@ -1,0 +1,44 @@
+@import 'variables';
+*
+{
+  padding:0;
+  margin:0;
+}
+a
+{
+  text-decoration:none;
+
+}
+li
+{
+  list-style: none;
+}
+body
+{
+  height:100vh;
+  font-size:16px;
+  font-family: 'Cabin', sans-serif;
+}
+.container
+{
+    width: 90%;
+    max-width: 90%;
+    margin: 0 auto;
+}
+.wrapper
+{
+  position: relative;
+}
+.select
+{
+  padding:0 !important;
+}
+.left
+{
+  height:100vh;
+}
+.title{
+  height: 10vh;
+  display: flex;
+  align-items: center;
+}
