@@ -1,5 +1,4 @@
 export default {
-   
         addCart(state, item) {
             if (state.cart.includes(item)) {
                 item.count++;
@@ -9,10 +8,10 @@ export default {
                 state.cart.push(item)
             }
         },
-        increaseCart(item) {
+        increaseCart(state,item) {
             item.count++
         },
-        minusCart(item) {
+        minusCart(state,item) {
             item.count--
             if (item.count < 1)
                 item.count = 1

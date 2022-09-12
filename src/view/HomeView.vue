@@ -1,5 +1,5 @@
 <template>
-        <!-- <the-menu /> -->
+        <the-menu />
         <the-product />
         <the-cart />
         
@@ -9,13 +9,13 @@
     <OrderView />
 </template>
 <script>
-    // import TheMenu from '../components/TheMenu.vue';
+    import TheMenu from '../components/TheMenu.vue';
     import TheProduct from '../components/TheProduct.vue';
     import TheCart from '../components/TheCart.vue';
     import OrderView from '../view/OrderView.vue';
     export default{
         components: {
-        //    TheMenu,
+           TheMenu,
             TheProduct,
             TheCart,
             OrderView

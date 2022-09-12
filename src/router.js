@@ -12,6 +12,11 @@ const routes = [
     {   path: '/book', 
         component: BookView, 
         name: 'BookView',
+        
+    },
+    {   path: '/bill', 
+        component: BillView, 
+        name: 'BillView',
        
     },
     {   path: '/bill', 

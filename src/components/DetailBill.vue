@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { HTTP } from '../commom/api/api-commom.js';
 export default {
     props: ['data', 'showDialog','btn'],
     methods: {
@@ -39,7 +40,7 @@ export default {
                 idBill: idBill,
                 statusBill: 2
             }
-            axios.post('http://localhost/data/api/bill/update.php', JSON.stringify(tmp))
+            HTTP('bill/update.php', JSON.stringify(tmp))
                 .then(() => {
                     this.$emit('hide');
                 })

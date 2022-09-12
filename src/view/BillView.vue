@@ -1,4 +1,5 @@
 <template>
+    <the-menu />
     <div class="bill-view">
         <div class="title">
             <div class="container">
@@ -7,14 +8,8 @@
         </div>
         <div class="list container">
             <div class="tab">
-                <div class="tab-link active" data-tab="1" @click="filterData(1)" ref="index">
-                    <p>Confirm</p>
-                </div>
-                <div class="tab-link" data-tab="2" @click="filterData(2)" ref="index">
-                    <p>Success</p>
-                </div>
-                <div class="tab-link" data-tab="3" @click="filterData(3)" ref="index">
-                    <p>Fail</p>
+                <div class="tab-link"  v-for="(item,index) in tab" @click="filterData(item,index)" :class="{active:currentTab===item}" :key="item" >
+                    <p>{{item}}</p>
                 </div>
             </div>
             <div class="list-item">
@@ -37,30 +32,32 @@
                 <p class="more" @click="detail(item.idBill,item.total)">More</p>
             </div>
         </div>
-        <detailBill :data="detailBill" v-if="show" @hide="hide" :btn='false'/>
+        <detailBill :data="detailBill" v-if="show" @hide="hide" :btn='false' />
     </div>
 </template>
 
 <script>
-import $ from 'jquery';
-import axios from 'axios';
+import { HTTP } from '../commom/api/api-commom.js';
+import TheMenu from'../components/TheMenu.vue';
 import detailBill from '../components/DetailBill.vue';
 export default {
     components: {
-        detailBill
+        detailBill,
+        TheMenu
     },
     data() {
         return {
             data:[],
             detailBill: [],
-            tabIndex: 1,
+            tabIndex: 0,
             show:false,
+            isActive:false,
+            tab:['Confirm','Success','Fail'],
+            currentTab: 'Confirm',
         }
     },
     created() {
-        
-
-        axios.get('http://localhost/data/api/bill/selectByMethod.php?method=2')
+        HTTP.get('bill/selectByMethod.php?method=2')
             .then(tmp => {
                 this.data = tmp.data
             })
@@ -72,12 +69,13 @@ export default {
         }
     },
     methods: {
-        filterData(index)
+        filterData(item,index)
         {
-            this.tabIndex=index;
+            this.tabIndex=index; 
+            this.currentTab=item;
         },
         detail(id,total){      
-            axios.get(`http://localhost/data/api/detailBill/selectByID.php?id=${id}`)
+            HTTP.get(`detailBill/selectByID.php?id=${id}`)
             .then(data => {
                 this.detailBill = data.data
                 console.log(data.data)
@@ -96,13 +94,7 @@ export default {
         }
     },
     mounted() {
-        $('.tab-link').click(function () {
-            var tabID = $(this).attr('data-tab');
-          
-            $(this).addClass('active').siblings().removeClass('active');
-
-            $('#tab-' + tabID).addClass('active').siblings().removeClass('active');         
-        });
+        
     }
 }
 </script>
@@ -113,15 +105,6 @@ export default {
 {
     display:none;
 }
-.tab-link:nth-of-type(2).active {
-    p {
-        color: #3CCF4E !important;
-    }
-
-    color: #3CCF4E;
-    border-bottom: 2px solid #3CCF4E
-}
-
 .tab-link:nth-of-type(1).active {
     p {
         color: #1790D2 !important;
@@ -130,7 +113,14 @@ export default {
     color: #1790D2;
     border-bottom: 2px solid #1790D2
 }
+.tab-link:nth-of-type(2).active {
+    p {
+        color: #3CCF4E !important;
+    }
 
+    color: #3CCF4E;
+    border-bottom: 2px solid #3CCF4E
+}
 .tab-link:nth-of-type(3).active {
     color: #EE6534;
 
