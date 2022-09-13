@@ -53,7 +53,8 @@ export default {
             show:false,
             isActive:false,
             tab:['Confirm','Success','Fail'],
-            currentTab: 'Confirm',
+            currentTab: 'Confirm'
+          
         }
     },
     created() {

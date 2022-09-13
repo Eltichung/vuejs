@@ -41,11 +41,14 @@
         <div class="contacts">
         </div>
     </div>
-
 </template>
 <script>
 // import $ from 'jquery';
 export default {
+   
+    components: {
+       
+    },
     data() {
         return {
             isShow:false,        

@@ -3,8 +3,7 @@
         <div class="title">
             <div class="container">
                 <h1>Food & Drinks</h1>
-                <div class="search"  @click="this.isShow=!this.isShow">
-                 
+                <div class="search"  @click="showHide">  
                     <Transition name="bounce">
                         <input type="text" placeholder="search" id="input" v-if="isShow">
                     </Transition>
@@ -60,19 +59,20 @@
 </template>
 
 <script>
+import showHide from '../mixin/showHide';
 import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios';
 // import $ from 'jquery'
 export default {
     name: 'MyComponent',
+    mixins:[showHide],
     components: {
     },
     data() {
         return {
-            isShow: false,
+           
             dataType:[],
             dataProduct:[],
-            test:'',
             datatest:[],
           
         }
