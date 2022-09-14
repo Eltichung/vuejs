@@ -1,4 +1,5 @@
 <template>
+   
     <div class="cart">
         <div class="cart-top ">
             <div class="container">
@@ -50,13 +51,13 @@
             <button id="submit">Submit</button>
             <LoadingUI v-if="loading" />
         </div>
-
     </div>
+
 </template>
 <script>
 import $ from 'jquery';
-import axios from 'axios';
-import { mapGetters, mapMutations, mapState } from 'vuex';
+import { HTTP } from '../commom/api/api-commom.js';
+import { mapGetters, mapMutations, mapState,mapActions } from 'vuex';
 import LoadingUI from '../components/LoadingUI.vue'
 export default {
     data() {
@@ -64,7 +65,6 @@ export default {
             loading: false,
             count: [],
             position: [],
-
         }
     },
     components: {
@@ -73,7 +73,7 @@ export default {
     created() {
         for (let i = 1; i <= 20; i++)
             this.position.push(i)
-        axios.get('http://localhost/data/api/bill/selectByStatus.php?status=1')
+            HTTP.get('bill/selectByStatus.php?status=1')
             .then(data => {
                 data.data.forEach(item => {
                     this.count.push(item.position)
@@ -83,12 +83,13 @@ export default {
     },
     computed: {
         ...mapState([
-            'discount'
+            'discount',        
         ]),
         ...mapGetters([
             'getCart',
             'getDiscount',
             'totalCart',
+            
         ]),
         handleTotal() {
             return this.totalCart - this.getDiscount
@@ -108,10 +109,13 @@ export default {
             'addCart',
             'increaseCart',
             'minusCart',
-            'deleteItem',
+            // 'deleteItem',
             'clearCart',
             'showForm',
             'order'
+        ]),
+        ...mapActions([
+            'deleteItem'
         ]),
         order() {
             this.loading = !this.loading;
@@ -130,9 +134,9 @@ export default {
                 createDate
 
             }
-            axios.post('http://localhost/data/api/bill/create.php', JSON.stringify(bill))
+            HTTP.post('bill/create.php', JSON.stringify(bill))
                 .then(() => {
-                    axios.get('http://localhost/data/api/bill/read.php')
+                    HTTP.get('bill/read.php')
                         .then(data => {
                             let tmp = data.data.reverse();
                             let idBill = tmp[0].idBill;
@@ -150,7 +154,7 @@ export default {
                             return detailBill
                         })
                         .then((detailBill) => {
-                            axios.post('http://localhost/data/api/detailBill/create.php', JSON.stringify(detailBill))
+                            HTTP.post('detailBill/create.php', JSON.stringify(detailBill))
                                 .then(() => {
                                     document.querySelector('.select').innerText = 'Chọn Bàn';
                                     let index=this.position.findIndex(tmp=>tmp==position)
@@ -166,8 +170,6 @@ export default {
         },
     },
     mounted() {
-
-
         $(document).ready(function () {
             $(".select").click(function () {
                 $(".menu").slideToggle("slow");

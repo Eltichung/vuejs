@@ -3,8 +3,11 @@
         <div class="title">
             <div class="container">
                 <h1>Food & Drinks</h1>
-                <div class="search">
-                    <input type="text" placeholder="search" id="input">
+                <div class="search"  @click="showHide">  
+                    <Transition name="bounce">
+                        <input type="text" placeholder="search" id="input" v-if="isShow">
+                    </Transition>
+             
                     <i class="fa-solid fa-magnifying-glass" id="icon-search"></i>
                 </div>
             </div>
@@ -56,19 +59,20 @@
 </template>
 
 <script>
+import showHide from '../mixin/showHide';
 import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios';
-import $ from 'jquery'
+// import $ from 'jquery'
 export default {
     name: 'MyComponent',
+    mixins:[showHide],
     components: {
     },
     data() {
         return {
-            isShow: false,
+           
             dataType:[],
             dataProduct:[],
-            test:'',
             datatest:[],
           
         }
@@ -132,9 +136,7 @@ export default {
         {
            return this.dataProduct.filter(item=>item.typeID==id)  
         },
-        showInput() {
-            this.isShow = !this.isShow;
-        },   
+  
         ...mapMutations(
             [
                 'addCart'
@@ -142,13 +144,6 @@ export default {
         )
     },
     mounted() {
-        $(document).ready(function () {
-            $("#icon-search").click(function () {
-                $("#input").toggle("slow");
-            });
-        });
-        
-
     }
 }
 </script>
@@ -156,7 +151,23 @@ export default {
 $bg-light: #f3f3f3;
 $white: #fff;
 $black: #000;
-
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .text {
     display: flex;
     justify-content: space-between;
@@ -253,7 +264,7 @@ $black: #000;
                 outline: none;
                 font-size: 125%;
                 border: 0;
-                display: none;
+                // display: none;
             }
         }
     }

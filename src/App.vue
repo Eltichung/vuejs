@@ -1,5 +1,5 @@
 <template>
-<the-menu />
+<!-- <the-menu /> -->
 <!-- <HomeView />
 <BookView /> -->
 <!-- <OrderView /> -->
@@ -7,13 +7,13 @@
 </template>
 
 <script>
-  import TheMenu from '../src/components/TheMenu.vue';
+  // import TheMenu from '../src/components/TheMenu.vue';
   // import BookView from './view/BookView.vue';
   // import OrderView from './view/OrderView.vue';
 export default {
   name: 'App',
   components: {
-    TheMenu
+    // TheMenu
   //  HomeView,
   //  BookView
   //  OrderView

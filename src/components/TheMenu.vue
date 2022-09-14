@@ -4,25 +4,34 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <router-link :to="{name:'HomeView'}">
-                    <li class="active"><a href="#">Food & Drinks</a></li>
-                </router-link>
-                <router-link :to="{name:'BookView'}">
-                    <li><a href="#">Book</a></li>
-                </router-link>
-                <router-link :to="{name:'BillView'}">
-                    <li><a href="#">Bills</a></li>
-                </router-link>
+                <li><a href="#" v-hover="{color:'red'}">Dashboard</a></li>
                 <li >
-                    <a href="#" id="show-hidden-menu">Manage</a>
-                    <ul class="menu-children" style="display: none">
-                        <li><a href="#">Product</a></li>
-                        <li><a href="#">Type</a></li>
-                        <li><a href="#">Account</a></li>
-                    </ul>
+                    <router-link :to="{name:'HomeView'}" active-class="active" exact >
+                        Food & Drinks    
+                    </router-link>
                 </li>
-
+                <li>
+                    <router-link :to="{name:'BookView'}" active-class="active">
+                        Book
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{name:'BillView'}" active-class="active">
+                        Bills
+                    </router-link>
+                </li>
+                <li>
+                    <a href="#" id="show-hidden-menu" @click="this.isShow=!this.isShow">Manage 
+                       <span><img src="../../images/arrow-down.png" alt="" id="arrow" :class="{active_arrow:isShow}"></span>
+                    </a>
+                    <Transition name="bounce">
+                        <ul class="menu-children" v-if="isShow">
+                            <li><a href="#">Product</a></li>
+                            <li><a href="#">Type</a></li>
+                            <li><a href="#">Account</a></li>
+                        </ul>
+                    </Transition>
+                </li>
             </ul>
             <ul>
                 <li><a href="#">Settings</a></li>
@@ -30,58 +39,91 @@
             </ul>
         </nav>
         <div class="contacts">
-
         </div>
     </div>
-
 </template>
+
 <script>
-import $ from 'jquery';
-export default
-    {
-        computed: {
-            addClass() {
-
-                return this.$router.params
-
-            }
-        },
-        mounted() {
-            $(document).ready(function () {
-                $('ul li').click(function () {
-                    $('li').removeClass("active");
-                    $(this).addClass("active");
-                });
-            });
-
-            $(document).ready(function () {
-                $('#show-hidden-menu').click(function () {
-                    $('.menu-children').slideToggle("slow");
-                });
-            });
+export default {
+    components: {
+    },
+    data() {
+        return {
+            isShow:false,        
         }
+            
+    },
+    computed: {
+        addClass() {
+            return this.$router.params
+        }
+    },
+    methods: {
+      
+    },
+    mounted() {
+        // $(document).ready(function () {
+        //     $('#show-hidden-menu').click(function () {
+        //         $('.menu-children').slideToggle("slow");
+        //     });
+        // });
     }
+}
 </script>
 <style lang="scss" scoped>
 $bg: #121212;
 $white: #fff;
-#show-hidden-menu
-{
-    display:block;
+@keyframes example {
+  0%   {transform:rotate(0deg);}
+ 
+  100% {transform:rotate(180deg);}
 }
-.left nav ul li .menu-children
-{
-    li
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.active_arrow{
+    transform:rotate(180deg);
+    animation:example 0.25s linear;
+}
+#show-hidden-menu {
+    display: block;
+    position: relative;
+    span
     {
-        padding: 5px 0;
-        a
+        margin-left: 15px;
+        img
         {
+            width:12px;  
+        }
+    }
+}
+
+.left nav ul li .menu-children {
+    li {
+        padding: 5px 0;
+
+        a {
             font-size: 100%;
         }
+
         &:hover {
-                    background-color: rgba(112, 112, 112, 0.3);
-                    border-radius: 10px;
-                }
+            background-color: rgba(112, 112, 112, 0.3);
+            border-radius: 10px;
+        }
     }
 }
 
@@ -92,7 +134,6 @@ $white: #fff;
     .logo {
         height: 10vh;
         background-color: $bg;
-
     }
 
     nav {
@@ -122,14 +163,15 @@ $white: #fff;
             }
 
             li {
-                padding: 10px 0;
                 width: 90%;
-                margin: 0 auto;
-
+                margin: 0 auto;  
                 a {
-                    margin-left: 25px;
+                    display: block;        
                     color: #fff;
                     font-size: 125%;
+                    display:block;
+                    padding: 10px 0;
+                    padding-left: 25px;
                 }
 
                 &:hover {
