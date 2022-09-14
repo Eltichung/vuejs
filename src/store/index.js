@@ -12,7 +12,7 @@
 
 // export default storeConfig;
 
-import modulesCart from "./Cart/modulesCart"
+import modulesCart from "./Cart"
 const storeConfig =({
     modules: {
         modulesCart,

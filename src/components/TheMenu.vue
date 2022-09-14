@@ -4,7 +4,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="#" v-hover="{color:'red'}">Dashboard</a></li>
                 <li >
                     <router-link :to="{name:'HomeView'}" active-class="active" exact >
                         Food & Drinks    
@@ -42,12 +42,10 @@
         </div>
     </div>
 </template>
+
 <script>
-// import $ from 'jquery';
 export default {
-   
     components: {
-       
     },
     data() {
         return {
@@ -99,7 +97,7 @@ $white: #fff;
 }
 .active_arrow{
     transform:rotate(180deg);
-    animation:example 0.5s linear;
+    animation:example 0.25s linear;
 }
 #show-hidden-menu {
     display: block;
@@ -136,7 +134,6 @@ $white: #fff;
     .logo {
         height: 10vh;
         background-color: $bg;
-
     }
 
     nav {

@@ -5,7 +5,9 @@ import { createStore } from 'vuex';
 import router from './router';
 import storeConfig from './store/index';
 
-
+import directives from '../src/directives/index'
 
 const store = createStore(storeConfig)
-createApp(App).use(VueDragscroll).use(store).use(router).mount('#app')
+const app=createApp(App);
+app.directive('hover',directives.hover)
+app.use(VueDragscroll).use(store).use(router).mount('#app')

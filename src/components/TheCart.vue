@@ -57,7 +57,6 @@
 <script>
 import $ from 'jquery';
 import { HTTP } from '../commom/api/api-commom.js';
-import axios from 'axios';
 import { mapGetters, mapMutations, mapState,mapActions } from 'vuex';
 import LoadingUI from '../components/LoadingUI.vue'
 export default {
@@ -74,7 +73,7 @@ export default {
     created() {
         for (let i = 1; i <= 20; i++)
             this.position.push(i)
-        axios.get('http://localhost/data/api/bill/selectByStatus.php?status=1')
+            HTTP.get('bill/selectByStatus.php?status=1')
             .then(data => {
                 data.data.forEach(item => {
                     this.count.push(item.position)
